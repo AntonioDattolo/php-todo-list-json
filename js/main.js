@@ -5,15 +5,21 @@ const myConfig = {
 	data() {
 		
 		return {
-			message: 'Welcome to VueJS!',
+			todolist : [ "ciao"]
 			
 		}
 	},
 	methods: {
-		
+		getConsole(){
+			console.log(this.todolist)
+		}
 	},
 	mounted(){
-		window.vue = this
+		window.vue = this;
+		axios.get("../server.php").then(results => {
+			console.log("Risultati: ", results);
+			this.todolist = results.data;
+		})
 	}
 };
 
