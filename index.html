@@ -12,9 +12,20 @@
 </head>
 <body class="myBg">
     <div id="app">
-        ciaociao
-
-      {{ this.todolist }}
+        <main class="container">
+            <h1 class="text-center">TodoList</h1>
+            <ul>
+                <li v-for="element,i in todolist">
+                    <span>
+                        {{element.name}}
+                    </span>
+                    <span v-if='element.state != "doit"' class="badge text-bg-danger" @click="getDoit(i)">{{element.state}}</span>
+                    <span v-if='element.state == "doit"' class="badge text-bg-success" @click="getDoit(i)">{{element.state}}</span>
+                </li>
+            </ul>
+            <input class="w-25" type="text" v-model="addTask" placeholder="Add New Task">
+            <button @click="getAddTask()"  class="btn btn-primary mx-2">Add New Task</button>
+        </main>
     </div>
     <script src="./js/main.js"></script>
 </body>

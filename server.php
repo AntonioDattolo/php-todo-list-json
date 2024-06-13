@@ -18,7 +18,7 @@ $todolist = [
     ],
     [
         'name' => 'controllare email',
-        'state' => 'loading'
+        'state' => 'doit'
     ],
 ];
 

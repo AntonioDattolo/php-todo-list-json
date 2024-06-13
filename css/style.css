@@ -1,0 +1,15 @@
+.myBg {
+    color: whitesmoke;
+    /* background-color: #020202; */
+    background-image: url(https://i.pinimg.com/originals/c5/9a/d2/c59ad2bd4ad2fbacd04017debc679ddb.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+span{
+    margin: 0 0.4rem;
+}
+
+li{
+    list-style: none;
+    text-transform: capitalize;
+}
