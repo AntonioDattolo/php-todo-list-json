@@ -1,0 +1,22 @@
+[
+    {
+        "name": "fare la spesa",
+        "state": true
+    },
+    {
+        "name": "portare fuori il cane",
+        "state": true
+    },
+    {
+        "name": "mettere la lavatrice",
+        "state": true
+    },
+    {
+        "name": "lavare i piatti",
+        "state": true
+    },
+    {
+        "name": "controllare email",
+        "state": false
+    }
+]

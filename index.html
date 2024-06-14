@@ -19,8 +19,8 @@
                     <span>
                         {{element.name}}
                     </span>
-                    <span v-if='element.state != "doit"' class="badge text-bg-danger" @click="getDoit(i)">{{element.state}}</span>
-                    <span v-if='element.state == "doit"' class="badge text-bg-success" @click="getDoit(i)">{{element.state}}</span>
+                    <span v-if='element.state != true' class="badge text-bg-danger" @click="getDoit(i)">In Progress</span>
+                    <span v-if='element.state == true' class="badge text-bg-success" @click="getDoit(i)">DoIt</span>
                 </li>
             </ul>
             <input class="w-25" type="text" v-model="addTask" placeholder="Add New Task">
