@@ -11,6 +11,11 @@ const myConfig = {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
+			},
+			requestDelete:{
+				headers:{
+					'Content-Type': 'null'
+				}
 			}
 			
 		}
@@ -18,19 +23,31 @@ const myConfig = {
 	methods: {
 		getDoit(index){
 			console.log(this.todolist)
-			if(this.todolist[index].state != true){
-				this.todolist[index].state = true
+			if(this.todolist.todolist[index].state != true){
+				this.todolist.todolist[index].state = true
 			} else{
-				this.todolist[index].state = false
+				this.todolist.todolist[index].state = false
 			}
 		},
 		getAddTask(){
-			let task = new Object({name : this.addTask, state : false})
+			let task = new Object({name : this.addTask, state : false, deleted : false})
 			axios.post("../php-todo-list-json/server.php",task,this.requestConfig).then(results => {
 				console.log("new Task :", results.data)
 				this.todolist = results.data
 			})
 			this.addTask= null
+		},
+		makeDeleteTask(index){
+			this.todolist.todolist[index].deleted = true
+			const indexToDelete ={
+				indice : index
+			}
+			console.log(index)
+			axios.post("../php-todo-list-json/server.php",indexToDelete, this.requestConfig).then(results => {
+				console.log("dentro la chiamata" ,indexToDelete)
+				console.log("new Task :", results.data)
+				this.todolist = results.data
+			})
 		}
 	},
 	mounted(){
