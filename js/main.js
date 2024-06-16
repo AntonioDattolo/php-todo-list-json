@@ -5,55 +5,65 @@ const myConfig = {
 	data() {
 		
 		return {
-			todolist: ["ciao"],
+			todolist: [],
 			addTask: null,
+			serverUrl : "../php-todo-list-json/server.php",
 			requestConfig: {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
 			},
-			requestDelete:{
-				headers:{
-					'Content-Type': 'null'
-				}
-			}
 			
 		}
 	},
 	methods: {
+		serverRequest(elementRequest){
+			axios.post(this.serverUrl,elementRequest, this.requestConfig).then(results => {
+				this.todolist = results.data
+			})
+		},
+
 		getDoit(index){
-			console.log(this.todolist)
 			if(this.todolist.todolist[index].state != true){
 				this.todolist.todolist[index].state = true
 			} else{
 				this.todolist.todolist[index].state = false
 			}
+			const stateToUpdate ={
+				indexToChange : index,
+				stateToChange : this.todolist.todolist[index].state
+			}
+			this.serverRequest(stateToUpdate)
 		},
 		getAddTask(){
 			let task = new Object({name : this.addTask, state : false, deleted : false})
-			axios.post("../php-todo-list-json/server.php",task,this.requestConfig).then(results => {
-				console.log("new Task :", results.data)
-				this.todolist = results.data
-			})
+			this.serverRequest(task)
 			this.addTask= null
 		},
-		makeDeleteTask(index){
+		makeSoftDeleteTask(index){
 			this.todolist.todolist[index].deleted = true
 			const indexToDelete ={
-				indice : index
+				softDelete : index
 			}
-			console.log(index)
-			axios.post("../php-todo-list-json/server.php",indexToDelete, this.requestConfig).then(results => {
-				console.log("dentro la chiamata" ,indexToDelete)
-				console.log("new Task :", results.data)
-				this.todolist = results.data
-			})
+			this.serverRequest(indexToDelete)
+		},
+		makeHardDelete(index){
+			const indexToDelete ={
+				hardDelete: index
+			}
+			this.serverRequest(indexToDelete)
+		},
+		resetTask(index){
+			this.todolist.cestino[index].deleted = false
+			const indexToRestore ={
+			 	restoration : index
+			}
+			this.serverRequest(indexToRestore)
 		}
 	},
 	mounted(){
 		window.vue = this;
-		axios.get("../php-todo-list-json/server.php").then(results => {
-			console.log("Risultati: ", results.data);
+		axios.get(this.serverUrl).then(results => {
 			this.todolist = results.data;
 		})
 	}

@@ -19,13 +19,18 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu bg-dark text-white">
                   <li v-for="element,i in todolist.cestino" class="my-2">
                     <span>
                         {{element.name}}
-                        <span v-if='element.state != true' class="badge text-bg-danger" @click="getDoit(i)">In Progress</span>
-                        <span v-if='element.state == true' class="badge text-bg-success" @click="getDoit(i)">DoIt</span>
-                        <!-- <span><button class="badge text-bg-danger"><i class="fa-solid fa-xmark"></i></button></span> -->
+                        <span v-if='element.state != true' class="badge text-bg-danger">
+                            In Progress
+                        </span>
+                        <span v-if='element.state == true' class="badge text-bg-success">
+                            DoIt
+                        </span>
+                        <button class="badge text-bg-success" @click="resetTask(i)"><i class="fa-solid fa-trash-can-arrow-up"></i></button>
+                        <button class="badge text-bg-danger" @click="makeHardDelete(i)"><i class="fa-solid fa-delete-left"></i></button>
                     </span>
                   </li>
                 </ul>
@@ -36,7 +41,7 @@
                         {{element.name}}
                         <span v-if='element.state != true' class="badge text-bg-danger" @click="getDoit(i)">In Progress</span>
                         <span v-if='element.state == true' class="badge text-bg-success" @click="getDoit(i)">DoIt</span>
-                        <span ><button @click="makeDeleteTask(i)" class="badge text-bg-danger" ><i class="fa-solid fa-xmark "></i></button></span>
+                        <span ><button @click="makeSoftDeleteTask(i)" class="badge text-bg-danger" ><i class="fa-solid fa-xmark "></i></button></span>
                     </span>
                 </li>
             </ul>
